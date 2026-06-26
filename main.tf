@@ -3,7 +3,6 @@ provider "google" {
   region  = var.region
 }
 
-# ✅ GKE Cluster (keep default pool but control it)
 resource "google_container_cluster" "primary" {
   name     = var.cluster_name
   location = var.region
@@ -14,13 +13,7 @@ resource "google_container_cluster" "primary" {
 
   node_config {
     machine_type = "e2-micro"
-
-    # ✅ THIS IS THE MAIN FIX
     disk_type    = "pd-standard"
-    disk_size_gb = 20
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    disk_size_gb = 10
   }
 }
