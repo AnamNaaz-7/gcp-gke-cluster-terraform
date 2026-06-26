@@ -3,27 +3,19 @@ provider "google" {
   region  = var.region
 }
 
+# ✅ GKE Cluster (keep default pool but control it)
 resource "google_container_cluster" "primary" {
   name     = var.cluster_name
   location = var.region
 
   deletion_protection = false
 
-  remove_default_node_pool = true
-  initial_node_count       = 1
-
-  networking_mode = "VPC_NATIVE"
-}
-
-resource "google_container_node_pool" "primary_nodes" {
-  name     = "node-pool"
-  location = var.region
-  cluster  = google_container_cluster.primary.name
-
   initial_node_count = 1
 
   node_config {
     machine_type = "e2-micro"
+
+    # ✅ THIS IS THE MAIN FIX
     disk_type    = "pd-standard"
     disk_size_gb = 20
 
@@ -32,4 +24,3 @@ resource "google_container_node_pool" "primary_nodes" {
     ]
   }
 }
-
