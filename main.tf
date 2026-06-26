@@ -14,6 +14,6 @@ resource "google_container_cluster" "primary" {
   node_config {
     machine_type = "e2-micro"
     disk_type    = "pd-standard"
-    disk_size_gb = 10
+    disk_size_gb = 15
   }
 }
