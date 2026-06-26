@@ -3,18 +3,22 @@ provider "google" {
   region  = var.region
 }
 
-module "gke-cluster" {
-  source  = "jetstack/gke-cluster/google"
+resource "google_container_cluster" "primary" {
+  name     = var.cluster_name
+  location = var.region
 
-  project_id   = var.project_id
-  cluster_name = var.cluster_name
-  region       = var.region
+  remove_default_node_pool = true
+  initial_node_count       = 1
+}
 
-  network      = var.network
-  subnetwork   = var.subnetwork
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "node-pool"
+  location   = var.region
+  cluster    = google_container_cluster.primary.name
 
-  ip_range_pods     = var.ip_range_pods
-  ip_range_services = var.ip_range_services
+  node_config {
+    machine_type = "e2-medium"
+  }
 
-  node_pools = var.node_pools
+  initial_node_count = 1
 }
