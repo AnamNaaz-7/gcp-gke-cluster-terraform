@@ -1,4 +1,4 @@
-project_id   = "YOUR_PROJECT_ID"
+project_id   = "gke-terraform-500607"
 region       = "us-central1"
 cluster_name = "gke-cluster-demo"
 
