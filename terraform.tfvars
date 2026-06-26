@@ -1,5 +1,5 @@
 project_id   = "gke-terraform-500607"
-region       = "us-central1"
+region = "us-west1"
 cluster_name = "gke-cluster-demo"
 
 network    = "default"
