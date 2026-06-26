@@ -5,7 +5,6 @@ provider "google" {
 
 module "gke-cluster" {
   source  = "jetstack/gke-cluster/google"
-  version = "0.3.0"
 
   project_id   = var.project_id
   cluster_name = var.cluster_name
